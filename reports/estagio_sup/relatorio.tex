@@ -1,0 +1,185 @@
+\documentclass[12pt]{article}
+%\usepackage{my_model}
+
+%\usepackage[pdftex]{graphicx}
+\usepackage[latin1]{inputenc}
+ \usepackage[inner=30mm,outer=20mm,top=3cm,bottom=3cm,left=3cm,right=2cm]{geometry}
+
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{pgfpages}
+\usepackage{ifpdf}
+\usepackage{multimedia}
+\usepackage{fancyhdr}
+%\usepackage{babel}
+%\usepackage{times}
+
+\renewcommand*{\familydefault}{\rmdefault}
+%\hyphenation{de-ta-lha-dos in-di-vi-dual Aces-si-bi-li-da-de
+%acom-pa-nha-men-to ope-ra-cio-nal Cas-ta-nhal a-pre-sen-tar
+%na-ve-ga-dor co-nhe-ci-men-tos ha-bi-li-da-de}
+
+\begin{document}
+\input{capa}
+
+\newpage
+\section{Apresentação}
+
+    \begin{itemize}
+        \item \textbf{Nome do Estágiário:} Gabriel Peixoto de Carvalho
+        \item \textbf{Matrícula da UFPA:} 201106840010
+        \item \textbf{Empresa onde foi realizado o estágio:} Laboratório de
+            Processamento de Sinais (LaPS), situado na Universidade federal do
+            Pará (UFPA), localizada na Rua Augusto Côrrea, N. 1.
+        \item \textbf{Orientador/Supervisor do Estágio:} Aldebaro Barreto da
+            Rocha Klautau Jr. 
+        \item \textbf{Período do Estágio:} Junho de 2015 a outubro de 2015 (5 meses)
+        \item \textbf{Carga Horária Semanal:} 20 horas semanais.
+        \item \textbf{Carga Horária Total:} 400 horas.
+    \end{itemize}
+
+\section{Objetivos}
+
+O objetivo das atividades desenvolvidas durante o estágio supervisionado foi o
+de conceber e implementar um setup experimental de transmissão de sinal de rádio
+em banda-base usando ethernet utilizando-se de placas FPGA (ML605) e 
+transceivers LTE (FMCOMMS2).
+
+\section{Atividades Desenvolvidas}
+
+Durante o Período do estágio foram desenvolvidas as seguintes atividades:
+
+    \begin{itemize}
+        \item Concepção do sistema;
+        \item Integração entre FPGA e o transceiver;
+        \item Estudo do Driver do transceiver;
+        \item Testes.
+    \end{itemize}
+
+\subsection{Concepção do Sistema}
+
+Inicialmente o setup foi pensado para testar um simulador de CPRI desenvolvido
+no laboratório, mas após o desenvolvimento do mesmo chegou-se à conclusão de que
+poderiam ser testadas outros algoritmos ou sistemas dentro desse mesmo setup.
+
+Para facilitar a implementação o setup foi pensado em duas fases, Downlink
+\ref{fig:down} e Uplink \ref{fig:up}:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/cpri_demo_p1}
+    \caption{Fase Downlink}
+    \label{fig:down}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/cpri_demo_p2}
+    \caption{Fase Uplink}
+    \label{fig:up}
+\end{figure}
+
+\subsection{Integração entre FPGA e Transceiver}
+
+O transceiver FMCOMMS2 da empresa Analog Devices pode ser integrado na FPGA
+utilizando o conector FMC, mas conectar somente não é o suficiente, é necessário
+que a lógica possa se comunicar e possa executar o driver do transceiver,
+tornando assim, possível a escrita em registradores do mesmo e consequente
+funcionamento dos dois dispositivos integrados.
+
+Para tal foi feito uso do microcontrolador embarcado da FPGA ML605, microblaze,
+esse microprocessador é responsavel por gerenciar e configurar todos os
+periféricos do sistema e em alguns casos por fazer algum processamento
+necessário.
+
+Alguns dos periféricos utilizados foram:
+
+    \begin{itemize}
+        \item Ethernet;
+        \item UART;
+        \item SPI (configuração e comunicação);
+        \item GPIO;
+        \item Interrupt Controller;
+        \item Slave Connectors (FMC);
+        \item Memória DDR3.
+    \end{itemize}
+
+\subsection{Estudo do Driver do Transceiver}
+
+O driver do Transceivar foi escrito na Linguagem C e realiza a rotina de
+inicialização do transceiver e também realiza algumas calibrações iniciais e
+testes opcionais. Foi realizado um intenso estudo do driver para entender seu
+funcionamente e capacidades para assim adaptá-lo as necessidades do setup.
+
+\subsection{Testes}
+
+Foram realizados intensivos testes para garantir o funcionamento correto do
+driver, os testes consistiram no uso de geradores de sinal e de analisadores de
+espectro para analisar o comportamento das portas de recepção e transmissão do
+transceiver, respectivamente.
+
+Após algumas correções de erros o setup se mostrou estável o suficiente.
+
+\section{Considerações Finais}
+
+Durante a realização das atividades foi necessário o conhecimento de protocolos
+de comunicação, redes de computadores, eletrônica e programação. As disciplinas
+da graduação que mais colaboraram com o desenvolvimento de tal atividade foram:
+
+    \begin{itemize}
+        \item Programação de computadores;
+        \item Redes de Computadores I e II;
+        \item Sinais e Sistemas;
+        \item Processamento de Sinais;
+        \item Eletrônica Digital;
+        \item Eletrônica Analógica.
+    \end{itemize}
+
+Conhecimentos técnicos também desempenharam um papel relevante no
+desenvolvimento das atividades, tais conhecimentos foram:
+    \begin{itemize}
+        \item Desenvolvimento de Sistemas embarcados;
+        \item Programação VHDL em FPGA;
+        \item Conhecimentos de planejamento de projeto.
+    \end{itemize}
+
+
+\section{Conclusão}
+
+As atividades desenvolvidas possibilitaram consolidar os conceitos aprendidos
+durante o curso de graduação e permitiram a expansão dos mesmos, além de
+proporcionar conhecimentos profissionais ao aluno.
+
+Esse setup é importante porque permite que sejam testados vários tipos de lógica
+e algoritmos dentro de um ambiente controlado, tais como compressão,
+sincronização e diversos protocolos em banda-base.
+
+
+\newpage
+\textbf{Parecer do Orientador:}
+
+\vspace{250pt}
+\begin{flushright}
+\rule{0.5\textwidth}{.4pt}\\[3pt]
+Aldebaro Barreto da Rocha Klautau Jr.\\[2pt]
+Professor da UFPa/FCT.\\[2pt]
+Orientador do Estágio.
+\end{flushright}
+
+\vfill
+
+\begin{flushright}
+\rule{0.5\textwidth}{.4pt}\\[3pt]
+Gabriel Peixoto de Carvalho.\\[2pt]
+Aluno de Graduação da UFPa.\\[2pt]
+Estagiário.
+\end{flushright}
+
+%\thispagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt} % remove lines as well
+%\cfoot{Av. AUGUSTO CORRÊA, n$\textdegree$ 1 -- CEP: 66075-900 -- BELÉM - PARÁ - BRASIL\\
+%Secretaria: Hewerton Sidônio; Fone: (091) 3201-7901; / e-mail para contato: engcomp@ufpa.br
+%}
+
+\end{document}
+%%% EOF %%%
